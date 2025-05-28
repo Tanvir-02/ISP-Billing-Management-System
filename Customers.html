@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISP Billing Management - Customers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="bg-gray-900 text-white w-64 min-h-screen p-4 hidden md:block">
+            <div class="flex items-center mb-8">
+                <div class="bg-blue-600 p-2 rounded-lg mr-3">
+                    <i class="fas fa-chart-bar text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold">ISP Billing</h1>
+                    <p class="text-gray-400 text-sm">Management System</p>
+                </div>
+            </div>
+            
+            <nav class="space-y-2">
+                <div class="text-gray-400 text-xs uppercase tracking-wider mb-4">Main</div>
+                <a href="index.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-tachometer-alt mr-3"></i>
+                    Dashboard
+                </a>
+                <a href="reports.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-chart-line mr-3"></i>
+                    Reports
+                </a>
+                
+                <div class="text-gray-400 text-xs uppercase tracking-wider mb-4 mt-6">Management</div>
+                <a href="packages.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-box mr-3"></i>
+                    Packages
+                </a>
+                <a href="customers.html" class="flex items-center p-3 rounded-lg bg-blue-600 text-white">
+                    <i class="fas fa-users mr-3"></i>
+                    Customers
+                </a>
+                <a href="resellers.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-handshake mr-3"></i>
+                    Resellers
+                </a>
+                <a href="collection.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-money-bill-wave mr-3"></i>
+                    Collection
+                </a>
+                <a href="due-collection.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-exclamation-triangle mr-3"></i>
+                    Due Collection
+                </a>
+                <a href="expenses.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-receipt mr-3"></i>
+                    Expenses
+                </a>
+                
+                <div class="text-gray-400 text-xs uppercase tracking-wider mb-4 mt-6">System</div>
+                <a href="settings.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-cog mr-3"></i>
+                    Settings
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-white shadow-sm border-b border-gray-200 p-4">
+                <div class="flex items-center justify-between">
+                    <h1 class="text-2xl font-bold text-gray-900">Customers</h1>
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            <input type="text" placeholder="Search customers..." 
+                                   class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+                        <button onclick="openAddCustomerModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center transition-colors duration-200">
+                            <i class="fas fa-plus mr-2"></i>
+                            Add Customer
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Customers Content -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-6">
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Package</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Payment</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                                <i class="fas fa-user text-blue-600"></i>
+                                            </div>
+                                            <div>
+                                                <div class="text-sm font-medium text-gray-900">John Smith</div>
+                                                <div class="text-sm text-gray-500">123 Main St, City</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">+1 (555) 123-4567</div>
+                                        <div class="text-sm text-gray-500">john@email.com</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">Premium 50Mbps</div>
+                                        <div class="text-sm text-gray-500">$79.99/month</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 15, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50 transition-colors duration-200">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50 transition-colors duration-200">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors duration-200">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                                <i class="fas fa-user text-blue-600"></i>
+                                            </div>
+                                            <div>
+                                                <div class="text-sm font-medium text-gray-900">Sarah Johnson</div>
+                                                <div class="text-sm text-gray-500">456 Oak Ave, Town</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">+1 (555) 987-6543</div>
+                                        <div class="text-sm text-gray-500">sarah@email.com</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">Standard 25Mbps</div>
+                                        <div class="text-sm text-gray-500">$49.99/month</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 12, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50 transition-colors duration-200">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50 transition-colors duration-200">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors duration-200">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                                <i class="fas fa-user text-blue-600"></i>
+                                            </div>
+                                            <div>
+                                                <div class="text-sm font-medium text-gray-900">Mike Davis</div>
+                                                <div class="text-sm text-gray-500">789 Pine St, Village</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">+1 (555) 456-7890</div>
+                                        <div class="text-sm text-gray-500">mike@email.com</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">Ultra 100Mbps</div>
+                                        <div class="text-sm text-gray-500">$129.99/month</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Nov 28, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50 transition-colors duration-200">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50 transition-colors duration-200">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors duration-200">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                                <i class="fas fa-user text-blue-600"></i>
+                                            </div>
+                                            <div>
+                                                <div class="text-sm font-medium text-gray-900">Lisa Brown</div>
+                                                <div class="text-sm text-gray-500">321 Elm St, County</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">+1 (555) 234-5678</div>
+                                        <div class="text-sm text-gray-500">lisa@email.com</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">Enterprise 200Mbps</div>
+                                        <div class="text-sm text-gray-500">$199.99/month</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Overdue</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Nov 15, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50 transition-colors duration-200">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50 transition-colors duration-200">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors duration-200">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                                <i class="fas fa-user text-blue-600"></i>
+                                            </div>
+                                            <div>
+                                                <div class="text-sm font-medium text-gray-900">Robert Wilson</div>
+                                                <div class="text-sm text-gray-500">654 Maple Dr, District</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">+1 (555) 345-6789</div>
+                                        <div class="text-sm text-gray-500">robert@email.com</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">Basic 10Mbps</div>
+                                        <div class="text-sm text-gray-500">$29.99/month</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Overdue</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Nov 10, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50 transition-colors duration-200">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50 transition-colors duration-200">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors duration-200">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+                        <div class="flex-1 flex justify-between sm:hidden">
+                            <button class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">Previous</button>
+                            <button class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">Next</button>
+                        </div>
+                        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                            <div>
+                                <p class="text-sm text-gray-700">Showing <span class="font-medium">1</span> to <span class="font-medium">5</span> of <span class="font-medium">1,234</span> results</p>
+                            </div>
+                            <div>
+                                <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+                                    <button class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </button>
+                                    <button class="bg-blue-50 border-blue-500 text-blue-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">1</button>
+                                    <button class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">2</button>
+                                    <button class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">3</button>
+                                    <button class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add Customer Modal -->
+    <div id="addCustomerModal" class="fixed inset-0 bg-black bg-opacity-50 overflow-y-auto h-full w-full hidden z-50 backdrop-blur-sm">
+        <div class="relative top-10 mx-auto p-0 border w-11/12 md:w-4/5 lg:w-3/5 xl:w-1/2 shadow-2xl rounded-xl bg-white max-h-screen overflow-hidden">
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 border-b">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="bg-white bg-opacity-20 p-2 rounded-lg mr-3">
+                            <i class="fas fa-user-plus text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Add New Customer</h3>
+                            <p class="text-blue-100 text-sm">Create a new customer account</p>
+                        </div>
+                    </div>
+                    <button onclick="closeAddCustomerModal()" class="text-white hover:text-blue-200 transition-colors duration-200 p-2 hover:bg-white hover:bg-opacity-20 rounded-lg">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="max-h-96 overflow-y-auto p-6">
+                <form id="addCustomerForm" class="space-y-6">
+                    <!-- Personal Information -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-user text-blue-600 mr-2"></i>
+                            Personal Information
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
+                                <input type="text" id="firstName" placeholder="John" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
+                                <input type="text" id="lastName" placeholder="Smith" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Date of Birth</label>
+                                <input type="date" id="dateOfBirth" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Customer Type</label>
+                                <select id="customerType" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                                    <option value="individual">Individual</option>
+                                    <option value="business">Business</option>
+                                    <option value="corporate">Corporate</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-phone text-green-600 mr-2"></i>
+                            Contact Information
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+                                <input type="email" id="email" placeholder="john.smith@email.com" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
+                                <input type="tel" id="phone" placeholder="+1 (555) 123-4567" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Alternative Phone</label>
+                                <input type="tel" id="altPhone" placeholder="+1 (555) 987-6543" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Preferred Contact Method</label>
+                                <select id="contactMethod" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                                    <option value="email">Email</option>
+                                    <option value="phone">Phone</option>
+                                    <option value="sms">SMS</option>
+                                    <option value="mail">Mail</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Address Information -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-map-marker-alt text-red-600 mr-2"></i>
+                            Address Information
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Street Address *</label>
+                                <input type="text" id="streetAddress" placeholder="123 Main Street" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">City *</label>
+                                <input type="text" id="city" placeholder="New York" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">State/Province *</label>
+                                <input type="text" id="state" placeholder="NY" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">ZIP/Postal Code *</label>
+                                <input type="text" id="zipCode" placeholder="10001" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Country</label>
+                                <select id="country" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                                    <option value="US">United States</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service Information -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-wifi text-purple-600 mr-2"></i>
+                            Service Information
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Package *</label>
+                                <select id="package" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" required>
+                                    <option value="">Select Package</option>
+                                    <option value="basic">Basic 10Mbps - $29.99/month</option>
+                                    <option value="standard">Standard 25Mbps - $49.99/month</option>
+                                    <option value="premium">Premium 50Mbps - $79.99/month</option>
+                                    <option value="ultra">Ultra 100Mbps - $129.99/month</option>
+                                    <option value="enterprise">Enterprise 200Mbps - $199.99/month</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Installation Date</label>
+                                <input type="date" id="installationDate" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Connection Type</label>
+                                <select id="connectionType" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                                    <option value="fiber">Fiber Optic</option>
+                                    <option value="cable">Cable</option>
+                                    <option value="dsl">DSL</option>
+                                    <option value="wireless">Wireless</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Billing Cycle</label>
+                                <select id="billingCycle" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                                    <option value="monthly">Monthly</option>
+                                    <option value="quarterly">Quarterly</option>
+                                    <option value="semi-annual">Semi-Annual</option>
+                                    <option value="annual">Annual</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Services -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-plus-circle text-orange-600 mr-2"></i>
+                            Additional Services
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-3">
+                                <label class="flex items-center p-3 bg-white rounded-lg border border-gray-200 hover:bg-blue-50 transition-colors duration-200 cursor-pointer">
+                                    <input type="checkbox" id="staticIP" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-network-wired text-blue-600 mr-2"></i>
+                                        <span class="text-sm font-medium text-gray-700">Static IP Address (+$10/month)</span>
+                                    </div>
+                                </label>
+                                <label class="flex items-center p-3 bg-white rounded-lg border border-gray-200 hover:bg-blue-50 transition-colors duration-200 cursor-pointer">
+                                    <input type="checkbox" id="emailHosting" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-envelope text-green-600 mr-2"></i>
+                                        <span class="text-sm font-medium text-gray-700">Email Hosting (+$5/month)</span>
+                                    </div>
+                                </label>
+                                <label class="flex items-center p-3 bg-white rounded-lg border border-gray-200 hover:bg-blue-50 transition-colors duration-200 cursor-pointer">
+                                    <input type="checkbox" id="webHosting" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-server text-purple-600 mr-2"></i>
+                                        <span class="text-sm font-medium text-gray-700">Web Hosting (+$15/month)</span>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="space-y-3">
+                                <label class="flex items-center p-3 bg-white rounded-lg border border-gray-200 hover:bg-blue-50 transition-colors duration-200 cursor-pointer">
+                                    <input type="checkbox" id="techSupport" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-headset text-orange-600 mr-2"></i>
+                                        <span class="text-sm font-medium text-gray-700">Premium Tech Support (+$8/month)</span>
+                                    </div>
+                                </label>
+                                <label class="flex items-center p-3 bg-white rounded-lg border border-gray-200 hover:bg-blue-50 transition-colors duration-200 cursor-pointer">
+                                    <input type="checkbox" id="antivirus" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-shield-alt text-red-600 mr-2"></i>
+                                        <span class="text-sm font-medium text-gray-700">Antivirus Software (+$6/month)</span>
+                                    </div>
+                                </label>
+                                <label class="flex items-center p-3 bg-white rounded-lg border border-gray-200 hover:bg-blue-50 transition-colors duration-200 cursor-pointer">
+                                    <input type="checkbox" id="backup" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-cloud text-indigo-600 mr-2"></i>
+                                        <span class="text-sm font-medium text-gray-700">Cloud Backup (+$12/month)</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notes -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Additional Notes</label>
+                        <textarea id="notes" rows="3" placeholder="Any special requirements, installation notes, or customer preferences..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"></textarea>
+                    </div>
+
+                    <!-- Account Status -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-3">Account Status</label>
+                        <div class="flex space-x-6">
+                            <label class="flex items-center cursor-pointer">
+                                <input type="radio" name="accountStatus" value="active" checked class="text-green-600 focus:ring-green-500 mr-2">
+                                <span class="text-sm font-medium text-gray-700 flex items-center">
+                                    <i class="fas fa-check-circle text-green-600 mr-1"></i>
+                                    Active
+                                </span>
+                            </label>
+                            <label class="flex items-center cursor-pointer">
+                                <input type="radio" name="accountStatus" value="pending" class="text-yellow-600 focus:ring-yellow-500 mr-2">
+                                <span class="text-sm font-medium text-gray-700 flex items-center">
+                                    <i class="fas fa-clock text-yellow-600 mr-1"></i>
+                                    Pending
+                                </span>
+                            </label>
+                            <label class="flex items-center cursor-pointer">
+                                <input type="radio" name="accountStatus" value="suspended" class="text-red-600 focus:ring-red-500 mr-2">
+                                <span class="text-sm font-medium text-gray-700 flex items-center">
+                                    <i class="fas fa-pause-circle text-red-600 mr-1"></i>
+                                    Suspended
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Modal Footer -->
+            <div class="bg-gray-50 px-6 py-4 border-t flex items-center justify-between">
+                <div class="text-sm text-gray-500">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    Fields marked with * are required
+                </div>
+                <div class="flex space-x-3">
+                    <button type="button" onclick="closeAddCustomerModal()" class="px-6 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-gray-500 transition-all duration-200">
+                        <i class="fas fa-times mr-2"></i>
+                        Cancel
+                    </button>
+                    <button type="submit" form="addCustomerForm" class="px-6 py-3 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 border border-transparent rounded-lg hover:from-blue-700 hover:to-blue-800 focus:ring-2 focus:ring-blue-500 transition-all duration-200 shadow-lg">
+                        <i class="fas fa-user-plus mr-2"></i>
+                        Create Customer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openAddCustomerModal() {
+            document.getElementById('addCustomerModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            // Focus on first input
+            setTimeout(() => {
+                document.getElementById('firstName').focus();
+            }, 100);
+        }
+
+        function closeAddCustomerModal() {
+            document.getElementById('addCustomerModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            // Reset form
+            document.getElementById('addCustomerForm').reset();
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('addCustomerModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeAddCustomerModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !document.getElementById('addCustomerModal').classList.contains('hidden')) {
+                closeAddCustomerModal();
+            }
+        });
+
+        // Form submission handler
+        document.getElementById('addCustomerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const customerData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                dateOfBirth: document.getElementById('dateOfBirth').value,
+                customerType: document.getElementById('customerType').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                altPhone: document.getElementById('altPhone').value,
+                contactMethod: document.getElementById('contactMethod').value,
+                streetAddress: document.getElementById('streetAddress').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                zipCode: document.getElementById('zipCode').value,
+                country: document.getElementById('country').value,
+                package: document.getElementById('package').value,
+                installationDate: document.getElementById('installationDate').value,
+                connectionType: document.getElementById('connectionType').value,
+                billingCycle: document.getElementById('billingCycle').value,
+                notes: document.getElementById('notes').value,
+                accountStatus: document.querySelector('input[name="accountStatus"]:checked').value,
+                additionalServices: {
+                    staticIP: document.getElementById('staticIP').checked,
+                    emailHosting: document.getElementById('emailHosting').checked,
+                    webHosting: document.getElementById('webHosting').checked,
+                    techSupport: document.getElementById('techSupport').checked,
+                    antivirus: document.getElementById('antivirus').checked,
+                    backup: document.getElementById('backup').checked
+                }
+            };
+
+            // Here you would typically send the data to your backend
+            console.log('Customer Data:', customerData);
+            
+            // Show success message (you can replace this with actual success handling)
+            alert('Customer created successfully!');
+            
+            // Close modal
+            closeAddCustomerModal();
+        });
+
+        // Auto-format phone number
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 6) {
+                value = value.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+            } else if (value.length >= 3) {
+                value = value.replace(/(\d{3})(\d{0,3})/, '($1) $2');
+            }
+            e.target.value = value;
+        });
+
+        // Auto-format alternative phone number
+        document.getElementById('altPhone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 6) {
+                value = value.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+            } else if (value.length >= 3) {
+                value = value.replace(/(\d{3})(\d{0,3})/, '($1) $2');
+            }
+            e.target.value = value;
+        });
+
+        // Set default installation date to tomorrow
+        document.addEventListener('DOMContentLoaded', function() {
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('installationDate').value = tomorrow.toISOString().split('T')[0];
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISP Billing Management - Expenses</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="bg-gray-900 text-white w-64 min-h-screen p-4 hidden md:block">
+            <div class="flex items-center mb-8">
+                <div class="bg-blue-600 p-2 rounded-lg mr-3">
+                    <i class="fas fa-chart-bar text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold">ISP Billing</h1>
+                    <p class="text-gray-400 text-sm">Management System</p>
+                </div>
+            </div>
+            
+            <nav class="space-y-2">
+                <div class="text-gray-400 text-xs uppercase tracking-wider mb-4">Main</div>
+                <a href="index.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-tachometer-alt mr-3"></i>
+                    Dashboard
+                </a>
+                <a href="reports.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-chart-line mr-3"></i>
+                    Reports
+                </a>
+                
+                <div class="text-gray-400 text-xs uppercase tracking-wider mb-4 mt-6">Management</div>
+                <a href="packages.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-box mr-3"></i>
+                    Packages
+                </a>
+                <a href="customers.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-users mr-3"></i>
+                    Customers
+                </a>
+                <a href="resellers.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-handshake mr-3"></i>
+                    Resellers
+                </a>
+                <a href="collection.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-money-bill-wave mr-3"></i>
+                    Collection
+                </a>
+                <a href="due-collection.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-exclamation-triangle mr-3"></i>
+                    Due Collection
+                </a>
+                <a href="expenses.html" class="flex items-center p-3 rounded-lg bg-blue-600 text-white">
+                    <i class="fas fa-receipt mr-3"></i>
+                    Expenses
+                </a>
+                
+                <div class="text-gray-400 text-xs uppercase tracking-wider mb-4 mt-6">System</div>
+                <a href="settings.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-cog mr-3"></i>
+                    Settings
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-white shadow-sm border-b border-gray-200 p-4">
+                <div class="flex items-center justify-between">
+                    <h1 class="text-2xl font-bold text-gray-900">Expenses</h1>
+                    <div class="flex items-center space-x-4">
+                        <select class="border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                            <option>This Month</option>
+                            <option>Last Month</option>
+                            <option>Last 3 Months</option>
+                            <option>This Year</option>
+                        </select>
+                        <button onclick="openAddExpenseModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center transition-colors duration-200">
+                            <i class="fas fa-plus mr-2"></i>
+                            Add Expense
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Expenses Content -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-6">
+                <!-- Expense Summary Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center">
+                            <div class="bg-red-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-dollar-sign text-red-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Total Expenses</p>
+                                <p class="text-2xl font-bold text-gray-900">$34,250</p>
+                                <p class="text-sm text-red-600">This Month</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center">
+                            <div class="bg-orange-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-server text-orange-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Infrastructure</p>
+                                <p class="text-2xl font-bold text-gray-900">$18,500</p>
+                                <p class="text-sm text-orange-600">54% of total</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-users text-blue-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Staff Costs</p>
+                                <p class="text-2xl font-bold text-gray-900">$12,800</p>
+                                <p class="text-sm text-blue-600">37% of total</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center">
+                            <div class="bg-green-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-chart-line text-green-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">vs Last Month</p>
+                                <p class="text-2xl font-bold text-gray-900">-8.2%</p>
+                                <p class="text-sm text-green-600">Decreased</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Add Expense Form -->
+                <div class="bg-white rounded-lg shadow p-6 mb-8">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4">Quick Add Expense</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
+                            <input type="date" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                            <select class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                                <option>Infrastructure</option>
+                                <option>Staff Salaries</option>
+                                <option>Marketing</option>
+                                <option>Office Rent</option>
+                                <option>Utilities</option>
+                                <option>Equipment</option>
+                                <option>Maintenance</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Amount</label>
+                            <input type="number" placeholder="0.00" step="0.01" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                            <input type="text" placeholder="Expense description" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                        <div class="flex items-end">
+                            <button class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm">
+                                Add Expense
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expenses Table -->
+                <div class="bg-white rounded-lg shadow mb-8">
+                    <div class="p-6 border-b border-gray-200">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h2 class="text-lg font-semibold text-gray-900">Expense Records</h2>
+                                <p class="text-sm text-gray-600">Track and manage all business expenses</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <select class="border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                                    <option>All Categories</option>
+                                    <option>Infrastructure</option>
+                                    <option>Staff Salaries</option>
+                                    <option>Marketing</option>
+                                    <option>Office Rent</option>
+                                    <option>Utilities</option>
+                                </select>
+                                <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 text-sm">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Export
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Payment Method</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 15, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-orange-100 text-orange-800">Infrastructure</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Server hosting and bandwidth costs</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">$8,500.00</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Bank Transfer</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Paid</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50 transition-colors duration-200">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50 transition-colors duration-200">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors duration-200">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 10, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Staff Salaries</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Monthly staff salaries and benefits</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">$12,800.00</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Payroll</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Paid</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50 transition-colors duration-200">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50 transition-colors duration-200">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors duration-200">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 08, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">Office Rent</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Monthly office rent and utilities</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">$3,200.00</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Check</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Paid</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50 transition-colors duration-200">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50 transition-colors duration-200">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors duration-200">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 05, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Equipment</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Network equipment and routers</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">$5,450.00</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Credit Card</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Paid</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50 transition-colors duration-200">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50 transition-colors duration-200">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors duration-200">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 03, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Marketing</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Digital advertising and promotions</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">$2,800.00</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Credit Card</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50 transition-colors duration-200">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50 transition-colors duration-200">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors duration-200">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 01, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Utilities</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Electricity and internet bills</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">$1,500.00</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Auto-pay</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Paid</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50 transition-colors duration-200">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50 transition-colors duration-200">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors duration-200">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Expense Analytics -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Monthly Expense Breakdown -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Monthly Expense Breakdown</h3>
+                        <div class="h-64 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <div class="text-center">
+                                <i class="fas fa-chart-pie text-4xl text-gray-400 mb-2"></i>
+                                <p class="text-gray-500">Expense Breakdown Chart</p>
+                                <p class="text-sm text-gray-400">Category-wise distribution</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Expense Categories -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Expense Categories</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-orange-500 rounded mr-3"></div>
+                                    <span class="text-sm text-gray-700">Infrastructure</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold text-gray-900">$18,500</div>
+                                    <div class="text-xs text-gray-500">54.0%</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-blue-500 rounded mr-3"></div>
+                                    <span class="text-sm text-gray-700">Staff Salaries</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold text-gray-900">$12,800</div>
+                                    <div class="text-xs text-gray-500">37.4%</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-green-500 rounded mr-3"></div>
+                                    <span class="text-sm text-gray-700">Equipment</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold text-gray-900">$5,450</div>
+                                    <div class="text-xs text-gray-500">15.9%</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-purple-500 rounded mr-3"></div>
+                                    <span class="text-sm text-gray-700">Office Rent</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold text-gray-900">$3,200</div>
+                                    <div class="text-xs text-gray-500">9.3%</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-yellow-500 rounded mr-3"></div>
+                                    <span class="text-sm text-gray-700">Marketing</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold text-gray-900">$2,800</div>
+                                    <div class="text-xs text-gray-500">8.2%</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-red-500 rounded mr-3"></div>
+                                    <span class="text-sm text-gray-700">Utilities</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold text-gray-900">$1,500</div>
+                                    <div class="text-xs text-gray-500">4.4%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add Expense Modal -->
+    <div id="addExpenseModal" class="fixed inset-0 bg-black bg-opacity-50 overflow-y-auto h-full w-full hidden z-50 backdrop-blur-sm">
+        <div class="relative top-10 mx-auto p-0 border w-11/12 md:w-4/5 lg:w-3/5 xl:w-1/2 shadow-2xl rounded-xl bg-white max-h-screen overflow-hidden">
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-red-600 to-red-700 px-6 py-4 border-b">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="bg-white bg-opacity-20 p-2 rounded-lg mr-3">
+                            <i class="fas fa-receipt text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Add New Expense</h3>
+                            <p class="text-red-100 text-sm">Record a new business expense</p>
+                        </div>
+                    </div>
+                    <button onclick="closeAddExpenseModal()" class="text-white hover:text-red-200 transition-colors duration-200 p-2 hover:bg-white hover:bg-opacity-20 rounded-lg">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="max-h-96 overflow-y-auto p-6">
+                <form id="addExpenseForm" class="space-y-6">
+                    <!-- Basic Information -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-info-circle text-red-600 mr-2"></i>
+                            Basic Information
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Expense Date *</label>
+                                <input type="date" id="expenseDate" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
+                                <select id="category" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200" required>
+                                    <option value="">Select Category</option>
+                                    <option value="infrastructure">Infrastructure</option>
+                                    <option value="staff-salaries">Staff Salaries</option>
+                                    <option value="marketing">Marketing</option>
+                                    <option value="office-rent">Office Rent</option>
+                                    <option value="utilities">Utilities</option>
+                                    <option value="equipment">Equipment</option>
+                                    <option value="maintenance">Maintenance</option>
+                                    <option value="travel">Travel & Transportation</option>
+                                    <option value="insurance">Insurance</option>
+                                    <option value="legal">Legal & Professional</option>
+                                    <option value="training">Training & Development</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Amount *</label>
+                                <div class="flex">
+                                    <span class="px-4 py-3 bg-gray-100 border border-r-0 border-gray-300 rounded-l-lg text-sm text-gray-600 font-medium">$</span>
+                                    <input type="number" id="amount" step="0.01" min="0" placeholder="0.00" class="flex-1 px-4 py-3 border border-gray-300 rounded-r-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200" required>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Priority</label>
+                                <select id="priority" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200">
+                                    <option value="low">Low</option>
+                                    <option value="medium" selected>Medium</option>
+                                    <option value="high">High</option>
+                                    <option value="urgent">Urgent</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Description & Details -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-blue-600 mr-2"></i>
+                            Description & Details
+                        </h4>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Expense Title *</label>
+                                <input type="text" id="title" placeholder="e.g., Server hosting and bandwidth costs" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Detailed Description</label>
+                                <textarea id="description" rows="3" placeholder="Provide detailed information about this expense..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 resize-none"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vendor Information -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-building text-purple-600 mr-2"></i>
+                            Vendor Information
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Vendor/Supplier Name</label>
+                                <input type="text" id="vendorName" placeholder="e.g., AWS, Microsoft, Local Supplier" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Vendor Contact</label>
+                                <input type="text" id="vendorContact" placeholder="Phone or email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Invoice Number</label>
+                                <input type="text" id="invoiceNumber" placeholder="e.g., INV-2024-001" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Purchase Order Number</label>
+                                <input type="text" id="poNumber" placeholder="e.g., PO-2024-001" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Information -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-credit-card text-green-600 mr-2"></i>
+                            Payment Information
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Payment Method *</label>
+                                <select id="paymentMethod" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200" required>
+                                    <option value="">Select Method</option>
+                                    <option value="bank-transfer">Bank Transfer</option>
+                                    <option value="credit-card">Credit Card</option>
+                                    <option value="check">Check</option>
+                                    <option value="cash">Cash</option>
+                                    <option value="payroll">Payroll</option>
+                                    <option value="auto-pay">Auto-pay</option>
+                                    <option value="wire-transfer">Wire Transfer</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Payment Status</label>
+                                <select id="paymentStatus" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200">
+                                    <option value="paid">Paid</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="processing">Processing</option>
+                                    <option value="overdue">Overdue</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Payment Date</label>
+                                <input type="date" id="paymentDate" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Reference Number</label>
+                                <input type="text" id="referenceNumber" placeholder="Transaction/Check number" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tax & Accounting -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-calculator text-yellow-600 mr-2"></i>
+                            Tax & Accounting
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Tax Rate (%)</label>
+                                <input type="number" id="taxRate" step="0.01" min="0" max="100" placeholder="0.00" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Tax Amount</label>
+                                <div class="flex">
+                                    <span class="px-4 py-3 bg-gray-100 border border-r-0 border-gray-300 rounded-l-lg text-sm text-gray-600 font-medium">$</span>
+                                    <input type="number" id="taxAmount" step="0.01" min="0" placeholder="0.00" class="flex-1 px-4 py-3 border border-gray-300 rounded-r-lg bg-gray-100 text-gray-500 focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200" readonly>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Account Code</label>
+                                <input type="text" id="accountCode" placeholder="e.g., 5000, 6100" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Department</label>
+                                <select id="department" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200">
+                                    <option value="">Select Department</option>
+                                    <option value="it">IT & Technology</option>
+                                    <option value="operations">Operations</option>
+                                    <option value="hr">Human Resources</option>
+                                    <option value="finance">Finance</option>
+                                    <option value="marketing">Marketing</option>
+                                    <option value="sales">Sales</option>
+                                    <option value="admin">Administration</option>
+                                    <option value="general">General</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Options -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-cogs text-orange-600 mr-2"></i>
+                            Additional Options
+                        </h4>
+                        <div class="space-y-3">
+                            <label class="flex items-center p-3 bg-white rounded-lg border border-gray-200 hover:bg-red-50 transition-colors duration-200 cursor-pointer">
+                                <input type="checkbox" id="isRecurring" class="rounded border-gray-300 text-red-600 focus:ring-red-500 mr-3">
+                                <div class="flex items-center">
+                                    <i class="fas fa-sync-alt text-blue-600 mr-2"></i>
+                                    <span class="text-sm font-medium text-gray-700">Recurring Expense</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center p-3 bg-white rounded-lg border border-gray-200 hover:bg-red-50 transition-colors duration-200 cursor-pointer">
+                                <input type="checkbox" id="isReimbursable" class="rounded border-gray-300 text-red-600 focus:ring-red-500 mr-3">
+                                <div class="flex items-center">
+                                    <i class="fas fa-undo text-green-600 mr-2"></i>
+                                    <span class="text-sm font-medium text-gray-700">Reimbursable Expense</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center p-3 bg-white rounded-lg border border-gray-200 hover:bg-red-50 transition-colors duration-200 cursor-pointer">
+                                <input type="checkbox" id="requiresApproval" class="rounded border-gray-300 text-red-600 focus:ring-red-500 mr-3">
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-purple-600 mr-2"></i>
+                                    <span class="text-sm font-medium text-gray-700">Requires Approval</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center p-3 bg-white rounded-lg border border-gray-200 hover:bg-red-50 transition-colors duration-200 cursor-pointer">
+                                <input type="checkbox" id="attachReceipt" class="rounded border-gray-300 text-red-600 focus:ring-red-500 mr-3">
+                                <div class="flex items-center">
+                                    <i class="fas fa-paperclip text-yellow-600 mr-2"></i>
+                                    <span class="text-sm font-medium text-gray-700">Attach Receipt/Invoice</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Notes -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Additional Notes</label>
+                        <textarea id="notes" rows="3" placeholder="Any additional information, approval notes, or special instructions..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 resize-none"></textarea>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Modal Footer -->
+            <div class="bg-gray-50 px-6 py-4 border-t flex items-center justify-between">
+                <div class="text-sm text-gray-500">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    Fields marked with * are required
+                </div>
+                <div class="flex space-x-3">
+                    <button type="button" onclick="closeAddExpenseModal()" class="px-6 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-gray-500 transition-all duration-200">
+                        <i class="fas fa-times mr-2"></i>
+                        Cancel
+                    </button>
+                    <button type="submit" form="addExpenseForm" class="px-6 py-3 text-sm font-medium text-white bg-gradient-to-r from-red-600 to-red-700 border border-transparent rounded-lg hover:from-red-700 hover:to-red-800 focus:ring-2 focus:ring-red-500 transition-all duration-200 shadow-lg">
+                        <i class="fas fa-save mr-2"></i>
+                        Record Expense
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openAddExpenseModal() {
+            document.getElementById('addExpenseModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            // Focus on first input
+            setTimeout(() => {
+                document.getElementById('expenseDate').focus();
+            }, 100);
+        }
+
+        function closeAddExpenseModal() {
+            document.getElementById('addExpenseModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            // Reset form
+            document.getElementById('addExpenseForm').reset();
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('addExpenseModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeAddExpenseModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !document.getElementById('addExpenseModal').classList.contains('hidden')) {
+                closeAddExpenseModal();
+            }
+        });
+
+        // Set default expense date to today
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            document.getElementById('expenseDate').value = today.toISOString().split('T')[0];
+            document.getElementById('paymentDate').value = today.toISOString().split('T')[0];
+            
+            // Calculate tax amount when tax rate or amount changes
+            function calculateTax() {
+                const amount = parseFloat(document.getElementById('amount').value) || 0;
+                const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
+                const taxAmount = (amount * taxRate / 100);
+                document.getElementById('taxAmount').value = taxAmount.toFixed(2);
+            }
+            
+            document.getElementById('amount').addEventListener('input', calculateTax);
+            document.getElementById('taxRate').addEventListener('input', calculateTax);
+        });
+
+        // Form submission handler
+        document.getElementById('addExpenseForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const expenseData = {
+                expenseDate: document.getElementById('expenseDate').value,
+                category: document.getElementById('category').value,
+                amount: document.getElementById('amount').value,
+                priority: document.getElementById('priority').value,
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                vendorName: document.getElementById('vendorName').value,
+                vendorContact: document.getElementById('vendorContact').value,
+                invoiceNumber: document.getElementById('invoiceNumber').value,
+                poNumber: document.getElementById('poNumber').value,
+                paymentMethod: document.getElementById('paymentMethod').value,
+                paymentStatus: document.getElementById('paymentStatus').value,
+                paymentDate: document.getElementById('paymentDate').value,
+                referenceNumber: document.getElementById('referenceNumber').value,
+                taxRate: document.getElementById('taxRate').value,
+                taxAmount: document.getElementById('taxAmount').value,
+                accountCode: document.getElementById('accountCode').value,
+                department: document.getElementById('department').value,
+                notes: document.getElementById('notes').value,
+                options: {
+                    isRecurring: document.getElementById('isRecurring').checked,
+                    isReimbursable: document.getElementById('isReimbursable').checked,
+                    requiresApproval: document.getElementById('requiresApproval').checked,
+                    attachReceipt: document.getElementById('attachReceipt').checked
+                }
+            };
+
+            // Here you would typically send the data to your backend
+            console.log('Expense Data:', expenseData);
+            
+            // Show success message (you can replace this with actual success handling)
+            alert('Expense recorded successfully!');
+            
+            // Close modal
+            closeAddExpenseModal();
+        });
+
+        // Auto-format currency inputs
+        document.getElementById('amount').addEventListener('blur', function(e) {
+            const value = parseFloat(e.target.value);
+            if (!isNaN(value)) {
+                e.target.value = value.toFixed(2);
+            }
+        });
+
+        // Auto-format tax rate
+        document.getElementById('taxRate').addEventListener('blur', function(e) {
+            const value = parseFloat(e.target.value);
+            if (!isNaN(value)) {
+                e.target.value = value.toFixed(2);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISP Billing Management - Collection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="bg-gray-900 text-white w-64 min-h-screen p-4 hidden md:block">
+            <div class="flex items-center mb-8">
+                <div class="bg-blue-600 p-2 rounded-lg mr-3">
+                    <i class="fas fa-chart-bar text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold">ISP Billing</h1>
+                    <p class="text-gray-400 text-sm">Management System</p>
+                </div>
+            </div>
+            
+            <nav class="space-y-2">
+                <div class="text-gray-400 text-xs uppercase tracking-wider mb-4">Main</div>
+                <a href="index.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-tachometer-alt mr-3"></i>
+                    Dashboard
+                </a>
+                <a href="reports.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-chart-line mr-3"></i>
+                    Reports
+                </a>
+                
+                <div class="text-gray-400 text-xs uppercase tracking-wider mb-4 mt-6">Management</div>
+                <a href="packages.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-box mr-3"></i>
+                    Packages
+                </a>
+                <a href="customers.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-users mr-3"></i>
+                    Customers
+                </a>
+                <a href="resellers.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-handshake mr-3"></i>
+                    Resellers
+                </a>
+                <a href="collection.html" class="flex items-center p-3 rounded-lg bg-blue-600 text-white">
+                    <i class="fas fa-money-bill-wave mr-3"></i>
+                    Collection
+                </a>
+                <a href="due-collection.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-exclamation-triangle mr-3"></i>
+                    Due Collection
+                </a>
+                <a href="expenses.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-receipt mr-3"></i>
+                    Expenses
+                </a>
+                
+                <div class="text-gray-400 text-xs uppercase tracking-wider mb-4 mt-6">System</div>
+                <a href="settings.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-cog mr-3"></i>
+                    Settings
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-white shadow-sm border-b border-gray-200 p-4">
+                <div class="flex items-center justify-between">
+                    <h1 class="text-2xl font-bold text-gray-900">Collection</h1>
+                    <div class="flex items-center space-x-4">
+                        <select class="border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                            <option>Today</option>
+                            <option>This Week</option>
+                            <option>This Month</option>
+                            <option>Custom Range</option>
+                        </select>
+                        <button onclick="openAddCollectionModal()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center transition-colors duration-200">
+                            <i class="fas fa-plus mr-2"></i>
+                            Add Collection
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Collection Content -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-6">
+                <!-- Collection Summary Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center">
+                            <div class="bg-green-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-money-bill-wave text-green-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Today's Collections</p>
+                                <p class="text-2xl font-bold text-gray-900">$8,450</p>
+                                <p class="text-sm text-green-600">12 payments</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-calendar-week text-blue-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">This Week</p>
+                                <p class="text-2xl font-bold text-gray-900">$52,890</p>
+                                <p class="text-sm text-blue-600">89 payments</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center">
+                            <div class="bg-purple-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-calendar-alt text-purple-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">This Month</p>
+                                <p class="text-2xl font-bold text-gray-900">$198,750</p>
+                                <p class="text-sm text-purple-600">342 payments</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center">
+                            <div class="bg-yellow-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-percentage text-yellow-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Collection Rate</p>
+                                <p class="text-2xl font-bold text-gray-900">94.8%</p>
+                                <p class="text-sm text-yellow-600">This month</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Add Payment Form -->
+                <div class="bg-white rounded-lg shadow p-6 mb-8">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4">Quick Add Payment</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Customer</label>
+                            <select class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                                <option>Select Customer</option>
+                                <option>John Smith</option>
+                                <option>Sarah Johnson</option>
+                                <option>Mike Davis</option>
+                                <option>Lisa Brown</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Amount</label>
+                            <input type="number" placeholder="0.00" step="0.01" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Payment Method</label>
+                            <select class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                                <option>Cash</option>
+                                <option>Credit Card</option>
+                                <option>Bank Transfer</option>
+                                <option>Check</option>
+                                <option>Online Payment</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
+                            <input type="date" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Reference</label>
+                            <input type="text" placeholder="Transaction ID" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                        <div class="flex items-end">
+                            <button class="w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 text-sm">
+                                Add Payment
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Records Table -->
+                <div class="bg-white rounded-lg shadow mb-8">
+                    <div class="p-6 border-b border-gray-200">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h2 class="text-lg font-semibold text-gray-900">Payment Records</h2>
+                                <p class="text-sm text-gray-600">Track all customer payments and transactions</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <select class="border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                                    <option>All Methods</option>
+                                    <option>Cash</option>
+                                    <option>Credit Card</option>
+                                    <option>Bank Transfer</option>
+                                    <option>Check</option>
+                                    <option>Online Payment</option>
+                                </select>
+                                <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Export
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Method</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reference</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 15, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">John Smith</div>
+                                        <div class="text-sm text-gray-500">Premium 50Mbps</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600">$79.99</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Credit Card</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">TXN-2024-001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Completed</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50 transition-colors duration-200">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50 transition-colors duration-200">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 14, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">Sarah Johnson</div>
+                                        <div class="text-sm text-gray-500">Standard 25Mbps</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600">$49.99</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Bank Transfer</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">TXN-2024-002</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Completed</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50 transition-colors duration-200">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50 transition-colors duration-200">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 13, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">Mike Davis</div>
+                                        <div class="text-sm text-gray-500">Ultra 100Mbps</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600">$129.99</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">Cash</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">CASH-001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Completed</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50 transition-colors duration-200">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50 transition-colors duration-200">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 12, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">Lisa Brown</div>
+                                        <div class="text-sm text-gray-500">Enterprise 200Mbps</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600">$199.99</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Check</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">CHK-4567</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Processing</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50 transition-colors duration-200">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50 transition-colors duration-200">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 11, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">Robert Wilson</div>
+                                        <div class="text-sm text-gray-500">Basic 10Mbps</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600">$29.99</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800">Online Payment</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">PAY-789123</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Completed</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50 transition-colors duration-200">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50 transition-colors duration-200">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Payment Method Analytics -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Payment Methods Distribution -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Payment Methods</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-blue-500 rounded mr-3"></div>
+                                    <span class="text-sm text-gray-700">Credit Card</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold text-gray-900">$89,450</div>
+                                    <div class="text-xs text-gray-500">45.0%</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-green-500 rounded mr-3"></div>
+                                    <span class="text-sm text-gray-700">Bank Transfer</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold text-gray-900">$67,300</div>
+                                    <div class="text-xs text-gray-500">33.9%</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-indigo-500 rounded mr-3"></div>
+                                    <span class="text-sm text-gray-700">Online Payment</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold text-gray-900">$25,800</div>
+                                    <div class="text-xs text-gray-500">13.0%</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-purple-500 rounded mr-3"></div>
+                                    <span class="text-sm text-gray-700">Cash</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold text-gray-900">$12,400</div>
+                                    <div class="text-xs text-gray-500">6.2%</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-yellow-500 rounded mr-3"></div>
+                                    <span class="text-sm text-gray-700">Check</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold text-gray-900">$3,800</div>
+                                    <div class="text-xs text-gray-500">1.9%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Daily Collection Trend -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Daily Collection Trend</h3>
+                        <div class="h-64 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <div class="text-center">
+                                <i class="fas fa-chart-area text-4xl text-gray-400 mb-2"></i>
+                                <p class="text-gray-500">Collection Trend Chart</p>
+                                <p class="text-sm text-gray-400">Last 30 days performance</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add Collection Modal -->
+    <div id="addCollectionModal" class="fixed inset-0 bg-black bg-opacity-50 overflow-y-auto h-full w-full hidden z-50 backdrop-blur-sm">
+        <div class="relative top-10 mx-auto p-0 border w-11/12 md:w-4/5 lg:w-3/5 xl:w-1/2 shadow-2xl rounded-xl bg-white max-h-screen overflow-hidden">
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-green-600 to-green-700 px-6 py-4 border-b">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="bg-white bg-opacity-20 p-2 rounded-lg mr-3">
+                            <i class="fas fa-money-bill-wave text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Add New Payment</h3>
+                            <p class="text-green-100 text-sm">Record a new customer payment</p>
+                        </div>
+                    </div>
+                    <button onclick="closeAddCollectionModal()" class="text-white hover:text-green-200 transition-colors duration-200 p-2 hover:bg-white hover:bg-opacity-20 rounded-lg">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="max-h-96 overflow-y-auto p-6">
+                <form id="addCollectionForm" class="space-y-6">
+                    <!-- Customer Information -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-user text-green-600 mr-2"></i>
+                            Customer Information
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Customer *</label>
+                                <select id="customer" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200" required>
+                                    <option value="">Select Customer</option>
+                                    <option value="john-smith">John Smith - Premium 50Mbps</option>
+                                    <option value="sarah-johnson">Sarah Johnson - Standard 25Mbps</option>
+                                    <option value="mike-davis">Mike Davis - Ultra 100Mbps</option>
+                                    <option value="lisa-brown">Lisa Brown - Enterprise 200Mbps</option>
+                                    <option value="robert-wilson">Robert Wilson - Basic 10Mbps</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Customer ID</label>
+                                <input type="text" id="customerId" placeholder="Auto-generated" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-500 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Package</label>
+                                <input type="text" id="package" placeholder="Auto-filled" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-500 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Details -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-file-invoice-dollar text-blue-600 mr-2"></i>
+                            Payment Details
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Payment Amount *</label>
+                                <div class="flex">
+                                    <span class="px-4 py-3 bg-gray-100 border border-r-0 border-gray-300 rounded-l-lg text-sm text-gray-600 font-medium">$</span>
+                                    <input type="number" id="paymentAmount" step="0.01" min="0" placeholder="0.00" class="flex-1 px-4 py-3 border border-gray-300 rounded-r-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200" required>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Payment Date *</label>
+                                <input type="date" id="paymentDate" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Payment Method *</label>
+                                <select id="paymentMethod" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200" required>
+                                    <option value="">Select Method</option>
+                                    <option value="cash">Cash</option>
+                                    <option value="credit-card">Credit Card</option>
+                                    <option value="bank-transfer">Bank Transfer</option>
+                                    <option value="check">Check</option>
+                                    <option value="online-payment">Online Payment</option>
+                                    <option value="mobile-payment">Mobile Payment</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Payment Status</label>
+                                <select id="paymentStatus" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200">
+                                    <option value="completed">Completed</option>
+                                    <option value="processing">Processing</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="failed">Failed</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transaction Information -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-receipt text-purple-600 mr-2"></i>
+                            Transaction Information
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Transaction ID</label>
+                                <input type="text" id="transactionId" placeholder="e.g., TXN-2024-001" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Invoice Number</label>
+                                <input type="text" id="invoiceNumber" placeholder="e.g., INV-2024-001" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Payment For</label>
+                                <select id="paymentFor" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200">
+                                    <option value="monthly-subscription">Monthly Subscription</option>
+                                    <option value="setup-fee">Setup Fee</option>
+                                    <option value="equipment">Equipment</option>
+                                    <option value="installation">Installation</option>
+                                    <option value="additional-services">Additional Services</option>
+                                    <option value="late-fee">Late Fee</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Billing Period</label>
+                                <select id="billingPeriod" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200">
+                                    <option value="current-month">Current Month</option>
+                                    <option value="previous-month">Previous Month</option>
+                                    <option value="next-month">Next Month (Advance)</option>
+                                    <option value="quarterly">Quarterly</option>
+                                    <option value="semi-annual">Semi-Annual</option>
+                                    <option value="annual">Annual</option>
+                                    <option value="one-time">One-time Payment</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Details for Credit Card/Bank Transfer -->
+                    <div id="paymentDetailsSection" class="bg-gray-50 p-4 rounded-lg hidden">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-credit-card text-red-600 mr-2"></i>
+                            <span id="paymentDetailsTitle">Payment Method Details</span>
+                        </h4>
+                        
+                        <!-- Credit Card Details (shown conditionally) -->
+                        <div id="creditCardDetails" class="grid grid-cols-1 md:grid-cols-2 gap-4 hidden">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Card Type</label>
+                                <select id="cardType" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200">
+                                    <option value="visa">Visa</option>
+                                    <option value="mastercard">Mastercard</option>
+                                    <option value="amex">American Express</option>
+                                    <option value="discover">Discover</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Last 4 Digits</label>
+                                <input type="text" id="cardLastFour" placeholder="e.g., 1234" maxlength="4" pattern="[0-9]{4}" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Authorization Code</label>
+                                <input type="text" id="authCode" placeholder="e.g., AUTH123456" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                        </div>
+                        
+                        <!-- Bank Transfer Details (shown conditionally) -->
+                        <div id="bankTransferDetails" class="grid grid-cols-1 md:grid-cols-2 gap-4 hidden">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Bank Name</label>
+                                <input type="text" id="bankName" placeholder="e.g., Chase Bank" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Reference Number</label>
+                                <input type="text" id="referenceNumber" placeholder="e.g., REF123456" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                        </div>
+                        
+                        <!-- Check Details (shown conditionally) -->
+                        <div id="checkDetails" class="grid grid-cols-1 md:grid-cols-2 gap-4 hidden">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Check Number</label>
+                                <input type="text" id="checkNumber" placeholder="e.g., 1001" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Bank Name</label>
+                                <input type="text" id="checkBankName" placeholder="e.g., Chase Bank" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Information -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Notes</label>
+                        <textarea id="notes" rows="3" placeholder="Any additional information about this payment..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 resize-none"></textarea>
+                    </div>
+
+                    <!-- Receipt Options -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-yellow-600 mr-2"></i>
+                            Receipt Options
+                        </h4>
+                        <div class="space-y-3">
+                            <label class="flex items-center p-3 bg-white rounded-lg border border-gray-200 hover:bg-green-50 transition-colors duration-200 cursor-pointer">
+                                <input type="checkbox" id="generateReceipt" class="rounded border-gray-300 text-green-600 focus:ring-green-500 mr-3" checked>
+                                <div class="flex items-center">
+                                    <i class="fas fa-file-invoice text-green-600 mr-2"></i>
+                                    <span class="text-sm font-medium text-gray-700">Generate Receipt</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center p-3 bg-white rounded-lg border border-gray-200 hover:bg-green-50 transition-colors duration-200 cursor-pointer">
+                                <input type="checkbox" id="emailReceipt" class="rounded border-gray-300 text-green-600 focus:ring-green-500 mr-3">
+                                <div class="flex items-center">
+                                    <i class="fas fa-envelope text-blue-600 mr-2"></i>
+                                    <span class="text-sm font-medium text-gray-700">Email Receipt to Customer</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center p-3 bg-white rounded-lg border border-gray-200 hover:bg-green-50 transition-colors duration-200 cursor-pointer">
+                                <input type="checkbox" id="smsNotification" class="rounded border-gray-300 text-green-600 focus:ring-green-500 mr-3">
+                                <div class="flex items-center">
+                                    <i class="fas fa-sms text-purple-600 mr-2"></i>
+                                    <span class="text-sm font-medium text-gray-700">Send SMS Notification</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Modal Footer -->
+            <div class="bg-gray-50 px-6 py-4 border-t flex items-center justify-between">
+                <div class="text-sm text-gray-500">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    Fields marked with * are required
+                </div>
+                <div class="flex space-x-3">
+                    <button type="button" onclick="closeAddCollectionModal()" class="px-6 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-gray-500 transition-all duration-200">
+                        <i class="fas fa-times mr-2"></i>
+                        Cancel
+                    </button>
+                    <button type="submit" form="addCollectionForm" class="px-6 py-3 text-sm font-medium text-white bg-gradient-to-r from-green-600 to-green-700 border border-transparent rounded-lg hover:from-green-700 hover:to-green-800 focus:ring-2 focus:ring-green-500 transition-all duration-200 shadow-lg">
+                        <i class="fas fa-save mr-2"></i>
+                        Record Payment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openAddCollectionModal() {
+            document.getElementById('addCollectionModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            // Focus on first input
+            setTimeout(() => {
+                document.getElementById('customer').focus();
+            }, 100);
+        }
+
+        function closeAddCollectionModal() {
+            document.getElementById('addCollectionModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            // Reset form
+            document.getElementById('addCollectionForm').reset();
+            // Hide conditional sections
+            document.getElementById('paymentDetailsSection').classList.add('hidden');
+            document.getElementById('creditCardDetails').classList.add('hidden');
+            document.getElementById('bankTransferDetails').classList.add('hidden');
+            document.getElementById('checkDetails').classList.add('hidden');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('addCollectionModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeAddCollectionModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !document.getElementById('addCollectionModal').classList.contains('hidden')) {
+                closeAddCollectionModal();
+            }
+        });
+
+        // Set default payment date to today
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            document.getElementById('paymentDate').value = today.toISOString().split('T')[0];
+            
+            // Setup customer selection to auto-fill related fields
+            document.getElementById('customer').addEventListener('change', function() {
+                const selectedCustomer = this.value;
+                let customerId = '';
+                let packageInfo = '';
+                
+                switch(selectedCustomer) {
+                    case 'john-smith':
+                        customerId = 'CUST-001';
+                        packageInfo = 'Premium 50Mbps - $79.99/month';
+                        break;
+                    case 'sarah-johnson':
+                        customerId = 'CUST-002';
+                        packageInfo = 'Standard 25Mbps - $49.99/month';
+                        break;
+                    case 'mike-davis':
+                        customerId = 'CUST-003';
+                        packageInfo = 'Ultra 100Mbps - $129.99/month';
+                        break;
+                    case 'lisa-brown':
+                        customerId = 'CUST-004';
+                        packageInfo = 'Enterprise 200Mbps - $199.99/month';
+                        break;
+                    case 'robert-wilson':
+                        customerId = 'CUST-005';
+                        packageInfo = 'Basic 10Mbps - $29.99/month';
+                        break;
+                    default:
+                        customerId = '';
+                        packageInfo = '';
+                }
+                
+                document.getElementById('customerId').value = customerId;
+                document.getElementById('package').value = packageInfo;
+            });
+            
+            // Show/hide payment method specific fields based on selection
+            document.getElementById('paymentMethod').addEventListener('change', function() {
+                const paymentMethod = this.value;
+                const paymentDetailsSection = document.getElementById('paymentDetailsSection');
+                const creditCardDetails = document.getElementById('creditCardDetails');
+                const bankTransferDetails = document.getElementById('bankTransferDetails');
+                const checkDetails = document.getElementById('checkDetails');
+                const paymentDetailsTitle = document.getElementById('paymentDetailsTitle');
+                
+                // Hide all first
+                paymentDetailsSection.classList.add('hidden');
+                creditCardDetails.classList.add('hidden');
+                bankTransferDetails.classList.add('hidden');
+                checkDetails.classList.add('hidden');
+                
+                // Show relevant section based on payment method
+                if (paymentMethod === 'credit-card') {
+                    paymentDetailsSection.classList.remove('hidden');
+                    creditCardDetails.classList.remove('hidden');
+                    paymentDetailsTitle.textContent = 'Credit Card Details';
+                } else if (paymentMethod === 'bank-transfer') {
+                    paymentDetailsSection.classList.remove('hidden');
+                    bankTransferDetails.classList.remove('hidden');
+                    paymentDetailsTitle.textContent = 'Bank Transfer Details';
+                } else if (paymentMethod === 'check') {
+                    paymentDetailsSection.classList.remove('hidden');
+                    checkDetails.classList.remove('hidden');
+                    paymentDetailsTitle.textContent = 'Check Details';
+                }
+            });
+        });
+
+        // Form submission handler
+        document.getElementById('addCollectionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const paymentData = {
+                customer: document.getElementById('customer').value,
+                customerId: document.getElementById('customerId').value,
+                package: document.getElementById('package').value,
+                paymentAmount: document.getElementById('paymentAmount').value,
+                paymentDate: document.getElementById('paymentDate').value,
+                paymentMethod: document.getElementById('paymentMethod').value,
+                paymentStatus: document.getElementById('paymentStatus').value,
+                transactionId: document.getElementById('transactionId').value,
+                invoiceNumber: document.getElementById('invoiceNumber').value,
+                paymentFor: document.getElementById('paymentFor').value,
+                billingPeriod: document.getElementById('billingPeriod').value,
+                notes: document.getElementById('notes').value,
+                receiptOptions: {
+                    generateReceipt: document.getElementById('generateReceipt').checked,
+                    emailReceipt: document.getElementById('emailReceipt').checked,
+                    smsNotification: document.getElementById('smsNotification').checked
+                }
+            };
+            
+            // Add payment method specific details if applicable
+            if (paymentData.paymentMethod === 'credit-card') {
+                paymentData.creditCardDetails = {
+                    cardType: document.getElementById('cardType').value,
+                    cardLastFour: document.getElementById('cardLastFour').value,
+                    authCode: document.getElementById('authCode').value
+                };
+            } else if (paymentData.paymentMethod === 'bank-transfer') {
+                paymentData.bankTransferDetails = {
+                    bankName: document.getElementById('bankName').value,
+                    referenceNumber: document.getElementById('referenceNumber').value
+                };
+            } else if (paymentData.paymentMethod === 'check') {
+                paymentData.checkDetails = {
+                    checkNumber: document.getElementById('checkNumber').value,
+                    bankName: document.getElementById('checkBankName').value
+                };
+            }
+            
+            // Here you would typically send the data to your backend
+            console.log('Payment Data:', paymentData);
+            
+            // Generate a transaction ID if not provided
+            if (!paymentData.transactionId) {
+                const date = new Date();
+                const randomNum = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+                paymentData.transactionId = `TXN-${date.getFullYear()}-${randomNum}`;
+            }
+            
+            // Show success message (you can replace this with actual success handling)
+            alert('Payment recorded successfully! Transaction ID: ' + paymentData.transactionId);
+            
+            // Close modal
+            closeAddCollectionModal();
+        });
+
+        // Auto-format for currency input
+        document.getElementById('paymentAmount').addEventListener('blur', function(e) {
+            const value = parseFloat(e.target.value);
+            if (!isNaN(value)) {
+                e.target.value = value.toFixed(2);
+            }
+        });
+    </script>
+</body>
+</html>

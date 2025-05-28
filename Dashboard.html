@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISP Billing Management - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="bg-gray-900 text-white w-64 min-h-screen p-4 hidden md:block">
+            <div class="flex items-center mb-8">
+                <div class="bg-blue-600 p-2 rounded-lg mr-3">
+                    <i class="fas fa-chart-bar text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold">ISP Billing</h1>
+                    <p class="text-gray-400 text-sm">Management System</p>
+                </div>
+            </div>
+            
+            <nav class="space-y-2">
+                <div class="text-gray-400 text-xs uppercase tracking-wider mb-4">Main</div>
+                <a href="index.html" class="flex items-center p-3 rounded-lg bg-blue-600 text-white">
+                    <i class="fas fa-tachometer-alt mr-3"></i>
+                    Dashboard
+                </a>
+                <a href="reports.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-chart-line mr-3"></i>
+                    Reports
+                </a>
+                
+                <div class="text-gray-400 text-xs uppercase tracking-wider mb-4 mt-6">Management</div>
+                <a href="packages.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-box mr-3"></i>
+                    Packages
+                </a>
+                <a href="customers.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-users mr-3"></i>
+                    Customers
+                </a>
+                <a href="resellers.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-handshake mr-3"></i>
+                    Resellers
+                </a>
+                <a href="collection.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-money-bill-wave mr-3"></i>
+                    Collection
+                </a>
+                <a href="due-collection.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-exclamation-triangle mr-3"></i>
+                    Due Collection
+                </a>
+                <a href="expenses.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-receipt mr-3"></i>
+                    Expenses
+                </a>
+                
+                <div class="text-gray-400 text-xs uppercase tracking-wider mb-4 mt-6">System</div>
+                <a href="settings.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-cog mr-3"></i>
+                    Settings
+                </a>
+            </nav>
+        </div>
+
+        <!-- Mobile Sidebar Toggle -->
+        <div class="md:hidden fixed top-4 left-4 z-50">
+            <button class="bg-gray-900 text-white p-2 rounded-lg">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-white shadow-sm border-b border-gray-200 p-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center flex-1 max-w-md">
+                        <div class="relative w-full">
+                            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            <input type="text" placeholder="Search customers, packages, or transactions..." 
+                                   class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="p-2 text-gray-400 hover:text-gray-600">
+                            <i class="fas fa-bell"></i>
+                        </button>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-gray-600"></i>
+                            </div>
+                            <div class="hidden md:block">
+                                <p class="text-sm font-medium text-gray-700">Admin User</p>
+                                <p class="text-xs text-gray-500">admin@ispbilling.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-6">
+                <!-- Summary Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Total Customers</p>
+                                <p class="text-3xl font-bold text-gray-900">1,234</p>
+                                <p class="text-sm text-green-600 mt-1">
+                                    <i class="fas fa-arrow-up mr-1"></i>
+                                    +12% from last month
+                                </p>
+                            </div>
+                            <div class="bg-blue-100 p-3 rounded-full">
+                                <i class="fas fa-users text-blue-600 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Active Packages</p>
+                                <p class="text-3xl font-bold text-gray-900">5</p>
+                                <p class="text-sm text-gray-500 mt-1">All packages active</p>
+                            </div>
+                            <div class="bg-green-100 p-3 rounded-full">
+                                <i class="fas fa-box text-green-600 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Total Revenue</p>
+                                <p class="text-3xl font-bold text-gray-900">$67,000</p>
+                                <p class="text-sm text-green-600 mt-1">
+                                    <i class="fas fa-arrow-up mr-1"></i>
+                                    +8% from last month
+                                </p>
+                            </div>
+                            <div class="bg-yellow-100 p-3 rounded-full">
+                                <i class="fas fa-dollar-sign text-yellow-600 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Pending Dues</p>
+                                <p class="text-3xl font-bold text-gray-900">$4,567</p>
+                                <p class="text-sm text-red-600 mt-1">
+                                    <i class="fas fa-arrow-down mr-1"></i>
+                                    23 overdue accounts
+                                </p>
+                            </div>
+                            <div class="bg-red-100 p-3 rounded-full">
+                                <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <!-- Monthly Revenue vs Expenses -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Monthly Revenue vs Expenses</h3>
+                        <p class="text-sm text-gray-600 mb-4">Revenue and expense comparison over the last 6 months</p>
+                        <div class="h-64 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <div class="text-center">
+                                <i class="fas fa-chart-bar text-4xl text-gray-400 mb-2"></i>
+                                <p class="text-gray-500">Chart will be displayed here</p>
+                                <p class="text-sm text-gray-400">Revenue vs Expenses Chart</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Package Usage Distribution -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Package Usage Distribution</h3>
+                        <p class="text-sm text-gray-600 mb-4">Number of customers per package type</p>
+                        <div class="h-64 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <div class="text-center">
+                                <i class="fas fa-chart-pie text-4xl text-gray-400 mb-2"></i>
+                                <p class="text-gray-500">Chart will be displayed here</p>
+                                <p class="text-sm text-gray-400">Package Distribution Chart</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Recent Customers -->
+                    <div class="bg-white rounded-lg shadow">
+                        <div class="p-6 border-b border-gray-200">
+                            <h3 class="text-lg font-semibold text-gray-900">Recent Customers</h3>
+                            <p class="text-sm text-gray-600">Latest customer registrations and updates</p>
+                        </div>
+                        <div class="p-6">
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                                            <i class="fas fa-user text-blue-600"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-gray-900">John Smith</p>
+                                            <p class="text-sm text-gray-500">Premium 50Mbps</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Active</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                                            <i class="fas fa-user text-blue-600"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-gray-900">Sarah Johnson</p>
+                                            <p class="text-sm text-gray-500">Standard 25Mbps</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Active</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                                            <i class="fas fa-user text-blue-600"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-gray-900">Mike Davis</p>
+                                            <p class="text-sm text-gray-500">Ultra 100Mbps</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Pending</span>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <a href="customers.html" class="text-blue-600 hover:text-blue-800 text-sm font-medium">View all customers →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Due Collections -->
+                    <div class="bg-white rounded-lg shadow">
+                        <div class="p-6 border-b border-gray-200">
+                            <h3 class="text-lg font-semibold text-gray-900">Due Collections</h3>
+                            <p class="text-sm text-gray-600">Customers with pending payments</p>
+                        </div>
+                        <div class="p-6">
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-medium text-gray-900">Robert Wilson</p>
+                                        <p class="text-sm text-gray-500">Due: $89.99 • 5 days overdue</p>
+                                    </div>
+                                    <button class="text-xs bg-red-100 text-red-800 px-3 py-1 rounded-full hover:bg-red-200">
+                                        Send Reminder
+                                    </button>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-medium text-gray-900">Lisa Brown</p>
+                                        <p class="text-sm text-gray-500">Due: $129.99 • 2 days overdue</p>
+                                    </div>
+                                    <button class="text-xs bg-red-100 text-red-800 px-3 py-1 rounded-full hover:bg-red-200">
+                                        Send Reminder
+                                    </button>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-medium text-gray-900">Tom Anderson</p>
+                                        <p class="text-sm text-gray-500">Due: $59.99 • 1 day overdue</p>
+                                    </div>
+                                    <button class="text-xs bg-red-100 text-red-800 px-3 py-1 rounded-full hover:bg-red-200">
+                                        Send Reminder
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <a href="due-collection.html" class="text-blue-600 hover:text-blue-800 text-sm font-medium">View all dues →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

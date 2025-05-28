@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISP Billing Management - Reports</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="bg-gray-900 text-white w-64 min-h-screen p-4 hidden md:block">
+            <div class="flex items-center mb-8">
+                <div class="bg-blue-600 p-2 rounded-lg mr-3">
+                    <i class="fas fa-chart-bar text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold">ISP Billing</h1>
+                    <p class="text-gray-400 text-sm">Management System</p>
+                </div>
+            </div>
+            
+            <nav class="space-y-2">
+                <div class="text-gray-400 text-xs uppercase tracking-wider mb-4">Main</div>
+                <a href="index.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-tachometer-alt mr-3"></i>
+                    Dashboard
+                </a>
+                <a href="reports.html" class="flex items-center p-3 rounded-lg bg-blue-600 text-white">
+                    <i class="fas fa-chart-line mr-3"></i>
+                    Reports
+                </a>
+                
+                <div class="text-gray-400 text-xs uppercase tracking-wider mb-4 mt-6">Management</div>
+                <a href="packages.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-box mr-3"></i>
+                    Packages
+                </a>
+                <a href="customers.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-users mr-3"></i>
+                    Customers
+                </a>
+                <a href="resellers.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-handshake mr-3"></i>
+                    Resellers
+                </a>
+                <a href="collection.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-money-bill-wave mr-3"></i>
+                    Collection
+                </a>
+                <a href="due-collection.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-exclamation-triangle mr-3"></i>
+                    Due Collection
+                </a>
+                <a href="expenses.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-receipt mr-3"></i>
+                    Expenses
+                </a>
+                
+                <div class="text-gray-400 text-xs uppercase tracking-wider mb-4 mt-6">System</div>
+                <a href="settings.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 text-gray-300">
+                    <i class="fas fa-cog mr-3"></i>
+                    Settings
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-white shadow-sm border-b border-gray-200 p-4">
+                <div class="flex items-center justify-between">
+                    <h1 class="text-2xl font-bold text-gray-900">Reports</h1>
+                    <div class="flex items-center space-x-4">
+                        <select class="border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                            <option>This Month</option>
+                            <option>Last Month</option>
+                            <option>Last 3 Months</option>
+                            <option>Last 6 Months</option>
+                            <option>This Year</option>
+                            <option>Custom Range</option>
+                        </select>
+                        <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center">
+                            <i class="fas fa-download mr-2"></i>
+                            Export PDF
+                        </button>
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center">
+                            <i class="fas fa-file-excel mr-2"></i>
+                            Export Excel
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Reports Content -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-6">
+                <!-- Report Summary Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center">
+                            <div class="bg-green-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-dollar-sign text-green-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Total Revenue</p>
+                                <p class="text-2xl font-bold text-gray-900">$67,450</p>
+                                <p class="text-sm text-green-600">This Month</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-money-bill-wave text-blue-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Collections</p>
+                                <p class="text-2xl font-bold text-gray-900">$62,890</p>
+                                <p class="text-sm text-blue-600">This Month</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center">
+                            <div class="bg-red-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Outstanding</p>
+                                <p class="text-2xl font-bold text-gray-900">$4,560</p>
+                                <p class="text-sm text-red-600">Overdue</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center">
+                            <div class="bg-purple-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-percentage text-purple-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Collection Rate</p>
+                                <p class="text-2xl font-bold text-gray-900">93.2%</p>
+                                <p class="text-sm text-purple-600">This Month</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter Section -->
+                <div class="bg-white rounded-lg shadow p-6 mb-8">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4">Report Filters</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Date Range</label>
+                            <select class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                                <option>Last 30 Days</option>
+                                <option>Last 60 Days</option>
+                                <option>Last 90 Days</option>
+                                <option>This Year</option>
+                                <option>Custom</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Package Type</label>
+                            <select class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                                <option>All Packages</option>
+                                <option>Basic</option>
+                                <option>Standard</option>
+                                <option>Premium</option>
+                                <option>Ultra</option>
+                                <option>Enterprise</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Payment Status</label>
+                            <select class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                                <option>All Status</option>
+                                <option>Paid</option>
+                                <option>Pending</option>
+                                <option>Overdue</option>
+                                <option>Cancelled</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Reseller</label>
+                            <select class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                                <option>All Resellers</option>
+                                <option>TechConnect Solutions</option>
+                                <option>NetWork Partners</option>
+                                <option>Digital Bridge Co.</option>
+                                <option>Direct Sales</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex space-x-4">
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm">
+                            Apply Filters
+                        </button>
+                        <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 text-sm">
+                            Reset Filters
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Billing Reports Table -->
+                <div class="bg-white rounded-lg shadow mb-8">
+                    <div class="p-6 border-b border-gray-200">
+                        <h2 class="text-lg font-semibold text-gray-900">Billing Reports</h2>
+                        <p class="text-sm text-gray-600">Detailed billing and collection records</p>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Invoice ID</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Package</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Issue Date</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Due Date</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#INV-2024-001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">John Smith</div>
+                                        <div class="text-sm text-gray-500">john@email.com</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Premium 50Mbps</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">$79.99</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 01, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 31, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Paid</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="text-blue-600 hover:text-blue-900 mr-3">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-green-600 hover:text-green-900">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#INV-2024-002</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">Sarah Johnson</div>
+                                        <div class="text-sm text-gray-500">sarah@email.com</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Standard 25Mbps</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">$49.99</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 01, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 31, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Paid</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="text-blue-600 hover:text-blue-900 mr-3">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-green-600 hover:text-green-900">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#INV-2024-003</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">Mike Davis</div>
+                                        <div class="text-sm text-gray-500">mike@email.com</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Ultra 100Mbps</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">$129.99</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 01, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 31, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="text-blue-600 hover:text-blue-900 mr-3">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-green-600 hover:text-green-900">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#INV-2024-004</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">Lisa Brown</div>
+                                        <div class="text-sm text-gray-500">lisa@email.com</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Enterprise 200Mbps</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">$199.99</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Nov 01, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Nov 30, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Overdue</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="text-blue-600 hover:text-blue-900 mr-3">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-green-600 hover:text-green-900">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#INV-2024-005</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">Robert Wilson</div>
+                                        <div class="text-sm text-gray-500">robert@email.com</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Basic 10Mbps</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">$29.99</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Nov 01, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Nov 30, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Overdue</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="text-blue-600 hover:text-blue-900 mr-3">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-green-600 hover:text-green-900">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Revenue Analytics -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Monthly Revenue Trend -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Monthly Revenue Trend</h3>
+                        <div class="h-64 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <div class="text-center">
+                                <i class="fas fa-chart-line text-4xl text-gray-400 mb-2"></i>
+                                <p class="text-gray-500">Revenue Trend Chart</p>
+                                <p class="text-sm text-gray-400">Last 12 months comparison</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Package Performance -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Package Performance</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-blue-500 rounded mr-3"></div>
+                                    <span class="text-sm text-gray-700">Premium 50Mbps</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold text-gray-900">$39,800</div>
+                                    <div class="text-xs text-gray-500">498 customers</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-green-500 rounded mr-3"></div>
+                                    <span class="text-sm text-gray-700">Standard 25Mbps</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold text-gray-900">$17,100</div>
+                                    <div class="text-xs text-gray-500">342 customers</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-purple-500 rounded mr-3"></div>
+                                    <span class="text-sm text-gray-700">Ultra 100Mbps</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold text-gray-900">$30,950</div>
+                                    <div class="text-xs text-gray-500">238 customers</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-yellow-500 rounded mr-3"></div>
+                                    <span class="text-sm text-gray-700">Enterprise 200Mbps</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold text-gray-900">$17,800</div>
+                                    <div class="text-xs text-gray-500">89 customers</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-gray-500 rounded mr-3"></div>
+                                    <span class="text-sm text-gray-700">Basic 10Mbps</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold text-gray-900">$4,680</div>
+                                    <div class="text-xs text-gray-500">156 customers</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
